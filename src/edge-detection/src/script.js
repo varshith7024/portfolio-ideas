@@ -4,6 +4,7 @@ import { doubleThreshold } from './functions/dthreshold/dthreshold.js';
 import { greyscale } from './functions/greyscale/greyscale.js';
 import { NonMaximumSupression } from './functions/nms/nms.js';
 import { HysteresisEdgeTracking } from './functions/hysteresis/hysteresis.js';
+import { arrayToCanvas } from './common/canvas.js';
 
 async function main() {
     let start = performance.now();
@@ -54,8 +55,7 @@ async function main() {
     );
     start = performance.now();
 
-    let greyscaleCanvasData = new ImageData(greyscaleImage, width, height);
-    ctx.putImageData(greyscaleCanvasData, 0, 0);
+    arrayToCanvas(greyscaleImage, ctx, width, height);
 
     // Approximate Gaussian Blur
     let newData = await fastBoxBlur(greyscaleImage, info);
@@ -66,9 +66,7 @@ async function main() {
     );
     start = performance.now();
 
-    let newDataClamped = new Uint8ClampedArray(newData);
-    let newDataCanvas = new ImageData(newDataClamped, width, height);
-    ctx.putImageData(newDataCanvas, 0, 0);
+    arrayToCanvas(newData, ctx, width, height);
 
     let sobelData = await sobelConvolutionFilter(newData, info);
     let sobelDataMagnitude = sobelData.magnitude;
@@ -81,9 +79,7 @@ async function main() {
     );
     start = performance.now();
 
-    let sobelDataClamped = new Uint8ClampedArray(sobelDataMagnitude);
-    let sobelDataCanvas = new ImageData(sobelDataClamped, width, height);
-    ctx.putImageData(sobelDataCanvas, 0, 0);
+    arrayToCanvas(sobelDataMagnitude, ctx, width, height);
 
     let nmsData = await NonMaximumSupression(
         sobelDataMagnitude,
@@ -96,9 +92,7 @@ async function main() {
             nmsExecutionTime - start
         )}ms`
     );
-    let nmsClamped = new Uint8ClampedArray(nmsData);
-    let nmsCanvas = new ImageData(nmsClamped, width, height);
-    ctx.putImageData(nmsCanvas, 0, 0);
+    arrayToCanvas(nmsData, ctx, width, height);
 
     start = performance.now();
 
@@ -109,9 +103,9 @@ async function main() {
             dtExecutionTime - start
         )}ms`
     );
-    let dtClamped = new Uint8ClampedArray(dtData);
-    let dtCanvas = new ImageData(dtClamped, width, height);
-    ctx.putImageData(dtCanvas, 0, 0);
+
+    arrayToCanvas(dtData, ctx, width, height);
+
     start = performance.now();
 
     let hysteresisData = await HysteresisEdgeTracking(dtData, info);
@@ -122,12 +116,8 @@ async function main() {
         )}ms`
     );
 
-    let final = new ImageData(width, height);
-    for (let i = 0; i < final.data.length; i++) {
-        final.data[i] = hysteresisData[i];
-    }
+    arrayToCanvas(hysteresisData, ctx, width, height);
 
-    ctx.putImageData(final, 0, 0);
     let totalEnd = performance.now();
     console.log(
         `Total execution time: ${Math.floor(
