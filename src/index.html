@@ -2,180 +2,53 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="reset.css" />
+        <link rel="stylesheet" href="styles/reset.css" />
+        <link rel="stylesheet" href="styles/scrollbar.css" />
+        <link rel="stylesheet" href="styles/general.css" />
+        <link rel="stylesheet" href="styles/fiji.css" />
+        <link rel="stylesheet" href="styles/welcome.css" />
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
         <?xml version="1.0" encoding="utf-8"?>
-
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-
-            html {
-                background-color: #151515;
-                font-family: 'Playfair Display', serif;
-                font-optical-sizing: auto;
-                color: #e3e3e3;
-                -ms-overflow-style: none; /* Internet Explorer 10+ */
-                scrollbar-width: none; /* Firefox */
-                scroll-behavior: smooth !important;
-            }
-
-            html::-webkit-scrollbar {
-                display: none; /* Safari and Chrome */
-            }
-            .directory {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .heading {
-                font-size: 20px;
-            }
-
-            .files {
-                height: 100vh;
-                display: flex;
-            }
-
-            .file {
-                margin-top: 10px;
-            }
-
-            .custom-scroll {
-                /* Always on top + position */
-                position: fixed;
-                top: 0;
-                right: 0;
-                flex-grow: 1;
-                z-index: 1;
-                height: 100vh;
-                width: 10vw;
-
-                /* Content */
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-            }
-
-            .wrapper {
-                position: relative;
-            }
-
-            .scroll-button {
-                border: none;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 0;
-                background-color: transparent;
-                /* Circle */
-                border-radius: 9999px;
-                transition-duration: 100ms;
-            }
-
-            .scroll-button:hover {
-                background-color: rgba(100, 100, 100, 0.5);
-            }
-
-            .scroll-dot {
-                height: 40px;
-                width: 40px;
-                fill: white;
-                transition-duration: 200ms;
-            }
-            .scroll-dot-bigger {
-                height: 60px !important;
-                width: 60px !important;
-                fill: white;
-                transition-duration: 200ms;
-            }
-
-            .heading {
-                font-size: 50px;
-            }
-
-            .text-content {
-                padding-top: 40vh;
-                padding-left: 20vw;
-                flex-direction: row;
-            }
-
-            .content {
-                margin-top: 10px;
-            }
-
-            .redirect {
-                font-family: 'Playfair Display', serif;
-
-                margin-top: 3vh;
-                width: 100px;
-
-                border: solid 1px white;
-                border-radius: 0;
-                background-color: transparent;
-                color: white;
-                height: 50px;
-
-                transition-duration: 150ms;
-            }
-
-            .redirect:hover {
-                background-color: white;
-                border: none;
-                color: #151515;
-            }
-
-            .image-content {
-                margin-left: 15vw;
-                margin-top: 35vh;
-                background-color: green;
-            }
-
-            .circle-fiji {
-                transform: scale(1.5);
-                width: 100px;
-                height: 100px;
-                margin-top: 100px;
-                margin-left: 100px;
-                position: absolute;
-            }
-            .filter-div {
-                position: absolute;
-
-                backdrop-filter: blur(5px);
-
-                animation-name: filter;
-                animation-duration: 2s;
-                animation-iteration-count: infinite;
-                animation-direction: alternate;
-                width: 300px;
-                height: 300px;
-            }
-
-            @keyframes filter {
-                from {
-                    backdrop-filter: blur(1px);
-                }
-                to {
-                    backdrop-filter: blur(20px);
-                }
-            }
-        </style>
     </head>
     <body>
         <div class="wrapper">
             <div class="directory">
                 <div
                     class="files file1"
-                    style="background-color: #151515"
+                    style="background-color: #cdd7d6"
                     id="item1"
+                >
+                    <div class="main-header">
+                        <p class="main-header-text">Varshith's Portfolio</p>
+                        <p class="main-header-subtext">
+                            A showcase of my projects
+                        </p>
+                        <svg
+                            class="main-header-svg"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            class="bi bi-chevron-down"
+                            viewBox="0 0 16 16"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
+                            />
+                        </svg>
+                    </div>
+                </div>
+                <div
+                    class="files file2"
+                    style="background-color: #151515"
+                    id="item2"
                 >
                     <div class="text-content">
                         <p class="heading">Fiji</p>
                         <p class="content">
-                            An experimental WebGPU filter for smooth 60ps
-                            filtering and effects.
+                            An experimental WebGPU filter for realtime filtering
+                            and effects.
                         </p>
                         <p class="content" id="fiji-support-check">
                             Supported on latest Chrome
@@ -211,13 +84,7 @@
                         <div class="filter-div"></div>
                     </div>
                 </div>
-                <div
-                    class="files file2"
-                    style="background-color: #cdd7d6"
-                    id="item2"
-                >
-                    <a class="file" href="homepage1/index.html">Fiji</a>
-                </div>
+
                 <div
                     class="files file3"
                     style="background-color: #061a40"
