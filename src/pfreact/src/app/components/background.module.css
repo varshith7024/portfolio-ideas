@@ -1,0 +1,11 @@
+.customBackground {
+    position: absolute;
+    z-index: -1;
+}
+
+.check {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

@@ -97,6 +97,62 @@ fn average(tex: texture_external, splr: sampler, coords: vec2<f32>, part: u32, r
     return sum;
 }
 
+fn sobelHorizontal(tex: texture_external, splr: sampler, coords: vec2<f32>, part: u32, radius_f: f32) -> f32 {
+    let texDimensions = textureDimensions(myTexture);
+    var onePixel = vec2(1.0, 1.0) / vec2(1920.0, 1080.0);
+
+    var sum = 0.0;
+    var radius = radius_f; 
+    var fraction = 1 / ((2 * radius + 1) * (2 * radius + 1));
+
+    // left right
+    sum += getRGBA(tex, splr, vec2(coords.x + (onePixel.x * 1), coords.y))[part] * 0.0;
+    sum += getRGBA(tex, splr, vec2(coords.x - (onePixel.x * 1), coords.y))[part] * 0.0;
+
+    // up and down
+    sum += getRGBA(tex, splr, vec2(coords.x , coords.y + (onePixel.y * 1)))[part] * -2.0;
+    sum += getRGBA(tex, splr, vec2(coords.x , coords.y - (onePixel.y * 1)))[part] * 2.0;
+
+    sum += getRGBA(tex, splr, vec2(coords.x + (onePixel.x * 1), coords.y + (onePixel.y * 1)))[part] * -1.0;
+    sum += getRGBA(tex, splr, vec2(coords.x - (onePixel.x * 1), coords.y + (onePixel.y * 1)))[part] * -1.0;
+
+    sum += getRGBA(tex, splr, vec2(coords.x + (onePixel.x * 1), coords.y - (onePixel.y * 1)))[part] * 1.0;
+    sum += getRGBA(tex, splr, vec2(coords.x - (onePixel.x * 1), coords.y - (onePixel.y * 1)))[part] * 1.0;
+    return sum;
+}
+fn sobelVertical(tex: texture_external, splr: sampler, coords: vec2<f32>, part: u32, radius_f: f32) -> f32 {
+    let texDimensions = textureDimensions(myTexture);
+    var onePixel = vec2(1.0, 1.0) / vec2(1920.0, 1080.0);
+
+    var sum = 0.0;
+    var radius = radius_f; 
+    var fraction = 1 / ((2 * radius + 1) * (2 * radius + 1));
+
+    // left right
+    sum += getRGBA(tex, splr, vec2(coords.x + (onePixel.x * 1), coords.y))[part] * 2.0;
+    sum += getRGBA(tex, splr, vec2(coords.x - (onePixel.x * 1), coords.y))[part] * -2.0;
+
+    // up and down
+    sum += getRGBA(tex, splr, vec2(coords.x , coords.y + (onePixel.y * 1)))[part] * 0.0;
+    sum += getRGBA(tex, splr, vec2(coords.x , coords.y - (onePixel.y * 1)))[part] * 0.0;
+
+    sum += getRGBA(tex, splr, vec2(coords.x + (onePixel.x * 1), coords.y + (onePixel.y * 1)))[part] * -1.0;
+    sum += getRGBA(tex, splr, vec2(coords.x - (onePixel.x * 1), coords.y + (onePixel.y * 1)))[part] * 1.0;
+
+    sum += getRGBA(tex, splr, vec2(coords.x + (onePixel.x * 1), coords.y - (onePixel.y * 1)))[part] * -1.0;
+    sum += getRGBA(tex, splr, vec2(coords.x - (onePixel.x * 1), coords.y - (onePixel.y * 1)))[part] * 1.0;
+    return sum;
+}
+
+
+fn sobel(tex: texture_external, splr: sampler, coords: vec2<f32>, part: u32, radius_f: f32) -> f32 {
+    let vert = sobelVertical(tex, splr, coords, part, radius_f);
+    let horizontal = sobelHorizontal(tex, splr, coords, part, radius_f);
+    let result = sqrt((vert*vert) + (horizontal*horizontal));
+    return result;
+}
+
+
 
 @fragment
 fn main(@location(0) fragUV : vec2<f32>) -> @location(0) vec4<f32> {
@@ -125,9 +181,9 @@ fn main(@location(0) fragUV : vec2<f32>) -> @location(0) vec4<f32> {
     else {
         let radius = 5.0;
 
-         var avg_red =  average(myTexture, mySampler, fragUV, 0, radius);
-         var avg_green =  average(myTexture, mySampler, fragUV, 1, radius);
-         var avg_blue = average(myTexture, mySampler, fragUV, 2, radius);
+         var avg_red =  sobel(myTexture, mySampler, fragUV, 0, radius);
+         var avg_green =  sobel(myTexture, mySampler, fragUV, 1, radius);
+         var avg_blue = sobel(myTexture, mySampler, fragUV, 2, radius);
 
 
         

@@ -2,7 +2,7 @@
 // message: <message-to-be-sent>
 function createWorker(source, message) {
     return new Promise((resolve, reject) => {
-        let worker = new Worker(source);
+        let worker = new Worker(source, { type: 'module' });
         worker.postMessage(message);
         worker.onmessage = (event) => {
             resolve(event.data);

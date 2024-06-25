@@ -6,7 +6,20 @@ import { NonMaximumSupression } from './functions/nms/nms.js';
 import { HysteresisEdgeTracking } from './functions/hysteresis/hysteresis.js';
 import { arrayToCanvas } from './common/canvas.js';
 
-async function main() {
+// import init, {
+//     fast_box_blur_wasm,
+//     greyscale_wasm,
+// } from './wasm-functions/pkg/wasm_functions.js';
+
+///// CONSTANTS
+const imageName = 'tes4.jpg';
+const dtMin = 0.09;
+const dtMax = 0.12;
+const blurRadius = 10;
+
+async function edgeDetect() {
+    // await init();
+
     let start = performance.now();
     let totalStart = performance.now();
     // Establish Canvas
@@ -17,7 +30,7 @@ async function main() {
     let copyCtx = copyCanvas.getContext('2d');
 
     const img = new Image();
-    img.src = 'tes3.jpg';
+    img.src = imageName;
     await img.decode();
 
     const height = img.height;
@@ -32,6 +45,7 @@ async function main() {
     let info = {
         height: height,
         width: width,
+        blurSize: blurRadius,
     };
 
     ctx.drawImage(img, 0, 0);
@@ -47,6 +61,8 @@ async function main() {
     start = performance.now();
 
     let greyscaleImage = greyscale(imageData);
+    // wasm overhead is too much
+    //let greyscaleImage = greyscale_wasm(imageData);
     let greyscaleExecutionTime = performance.now();
     console.log(
         `Greyscale Conversion completed in: ${Math.floor(
@@ -96,7 +112,7 @@ async function main() {
 
     start = performance.now();
 
-    let dtData = await doubleThreshold(nmsData, 0.09, 0.12);
+    let dtData = await doubleThreshold(nmsData, dtMin, dtMax);
     let dtExecutionTime = performance.now();
     console.log(
         `Double Threshold completed in: ${Math.floor(
@@ -124,6 +140,10 @@ async function main() {
             totalEnd - totalStart
         )}ms \n Image Size: ${img.width}x${img.height}`
     );
+}
+
+async function main() {
+    await edgeDetect();
 }
 
 main();

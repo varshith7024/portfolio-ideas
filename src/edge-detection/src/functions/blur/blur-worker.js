@@ -1,11 +1,25 @@
-onmessage = function (e) {
-    let msg = e.data;
-    self.postMessage(averageArray(msg.array, msg.info));
-};
+import init, {
+    fast_box_blur_wasm,
+} from '../../wasm-functions/pkg/wasm_functions.js';
 
-function averageArray(array, info) {
+onmessage = async function (e) {
+    let msg = e.data;
+    let post = await averageArray(msg.array, msg.info);
+    self.postMessage(post);
+};
+async function averageArray_wasm(array, info) {
+    await init();
+
+    let result = fast_box_blur_wasm(array, 3);
+
+    return result;
+}
+
+async function averageArray(array, info) {
+    await init();
+
     let result = [];
-    let blurSize = 3;
+    let blurSize = info.blurSize;
     let blurRadius = Math.floor(blurSize / 2);
 
     for (let i = 0; i < array.length; i++) {
@@ -52,19 +66,6 @@ function averageArray(array, info) {
             }
             count += 4;
         }
-        // if (i === 52250) {
-        //     console.log(
-        //         ' RUNNING VALUE -> ' +
-        //             array[i] +
-        //             '\n SUMS -> ' +
-        //             count +
-        //             '\n MULTIPLICATOR -> ' +
-        //             multiplicator +
-        //             '\n BLUR RADIUS -> ' +
-        //             blurRadius
-        //     );
-        // }
-
         result.push(Math.floor(average));
     }
 
