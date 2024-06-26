@@ -3,226 +3,60 @@
     <head>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="styles/reset.css" />
-        <link rel="stylesheet" href="styles/scrollbar.css" />
         <link rel="stylesheet" href="styles/general.css" />
-        <link rel="stylesheet" href="styles/fiji.css" />
-        <link rel="stylesheet" href="styles/welcome.css" />
-
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
         <?xml version="1.0" encoding="utf-8"?>
     </head>
     <body>
-        <div class="wrapper">
-            <div class="directory">
+        <div class="center-home">
+            <div class="container welcome">
                 <div
-                    class="files file1"
-                    style="background-color: #cdd7d6"
-                    id="item1"
+                    class="section overlay-container"
+                    style="background-color: var(--light-color-2)"
                 >
-                    <div class="main-header">
-                        <p class="main-header-text">Varshith's Portfolio</p>
-                        <p class="main-header-subtext">
-                            A showcase of my projects
-                        </p>
-                        <svg
-                            class="main-header-svg"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor"
-                            class="bi bi-chevron-down"
-                            viewBox="0 0 16 16"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
-                            />
-                        </svg>
+                    <div
+                        class="name-container"
+                        style="background-color: var(--light-color-1)"
+                    >
+                        <p>Varshith Anthagiri</p>
                     </div>
+                    <p>About Me</p>
                 </div>
                 <div
-                    class="files file2"
-                    style="background-color: #151515"
-                    id="item2"
+                    class="section border-section"
+                    style="background-color: var(--light-color-3)"
                 >
-                    <div class="text-content">
-                        <p class="heading">Fiji</p>
-                        <p class="content">
-                            An experimental WebGPU filter for realtime filtering
-                            and effects.
-                        </p>
-                        <p class="content" id="fiji-support-check">
-                            Supported on latest Chrome
-                        </p>
-
-                        <button
-                            class="redirect"
-                            onclick="redirect('/homepage1/index.html')"
-                        >
-                            Open
-                        </button>
-                    </div>
-
-                    <div class="image-content">
-                        <svg
-                            class="circle-fiji"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <style type="text/css">
-                                circle {
-                                    fill: url(#MyGradient);
-                                }
-                            </style>
-                            <defs>
-                                <linearGradient id="MyGradient">
-                                    <stop offset="0%" stop-color="#7EF29D" />
-                                    <stop offset="100%" stop-color="#0F68A9" />
-                                </linearGradient>
-                            </defs>
-
-                            <circle r="45" cx="50" cy="50" stroke-width="0" />
-                        </svg>
-                        <div class="filter-div"></div>
-                    </div>
+                    <p>Portfolio</p>
+                </div>
+                <div
+                    class="section border-section"
+                    style="background-color: var(--light-color-4)"
+                >
+                    <p>Skills</p>
+                </div>
+                <div
+                    class="section border-section"
+                    style="background-color: var(--light-color-5)"
+                >
+                    <p>Education</p>
                 </div>
 
                 <div
-                    class="files file3"
-                    style="background-color: #061a40"
-                    id="item3"
+                    class="section border-section"
+                    style="background-color: var(--light-color-6)"
                 >
-                    <a class="file" href="homepage1/index.html">Fiji</a>
+                    <p>Contact</p>
                 </div>
-            </div>
-
-            <div class="custom-scroll">
-                <button
-                    id="scroll1"
-                    class="scroll-button"
-                    onclick="customScroll('1')"
-                >
-                    <svg
-                        class="scroll-dot"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            class="scroll-dot-path"
-                            d="M7.8 10a2.2 2.2 0 0 0 4.4 0 2.2 2.2 0 0 0-4.4 0z"
-                        />
-                    </svg>
-                </button>
-                <button
-                    id="scroll2"
-                    class="scroll-button"
-                    onclick="customScroll('2')"
-                >
-                    <svg
-                        class="scroll-dot"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            class="scroll-dot-path"
-                            d="M7.8 10a2.2 2.2 0 0 0 4.4 0 2.2 2.2 0 0 0-4.4 0z"
-                        />
-                    </svg>
-                </button>
-                <button
-                    id="scroll3"
-                    class="scroll-button"
-                    onclick="customScroll('3')"
-                >
-                    <svg
-                        class="scroll-dot"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            class="scroll-dot-path"
-                            d="M7.8 10a2.2 2.2 0 0 0 4.4 0 2.2 2.2 0 0 0-4.4 0z"
-                        />
-                    </svg>
-                </button>
             </div>
         </div>
 
         <script>
-            // Custom Scrollbar
-            let scrollCheck = true;
-
-            checkScrollPage();
-
-            document.addEventListener('scroll', () => {
-                checkScrollPage();
-            });
-
-            // Fiji WebGPU support checking
-            checkWebGPUSupport();
-
-            async function checkWebGPUSupport() {
-                let p = document.getElementById('fiji-support-check');
-                try {
-                    let adapter = await navigator.gpu.requestAdapter();
-                } catch {
-                    p.innerText = 'WebGPU is not available in your browser. ';
-                    return;
-                }
-                p.innerText = 'Demo is supported';
-            }
-
-            function customScroll(id) {
-                scrollCheck = false;
-                // set all background color to transparent
-                let length =
-                    document.getElementsByClassName('scroll-button').length;
-                for (let i = 1; i < length + 1; i++) {
-                    document
-                        .querySelectorAll('#scroll' + i + ' > .scroll-dot')[0]
-                        .classList.remove('scroll-dot-bigger');
-                }
-                document
-                    .getElementById('item' + id)
-                    .scrollIntoView({ behavior: 'smooth' });
-                document
-                    .querySelectorAll('#scroll' + id + ' > .scroll-dot')[0]
-                    .classList.add('scroll-dot-bigger');
-
-                addEventListener('scrollend', (event) => {
-                    scrollCheck = true;
-                });
-            }
-
-            function customScrollBarSet(id) {
-                console.log('triggered');
-                let length =
-                    document.getElementsByClassName('scroll-button').length;
-                // reset
-                for (let i = 1; i < length + 1; i++) {
-                    document
-                        .querySelectorAll('#scroll' + i + ' > .scroll-dot')[0]
-                        .classList.remove('scroll-dot-bigger');
-                }
-                document
-                    .querySelectorAll('#scroll' + id + ' > .scroll-dot')[0]
-                    .classList.add('scroll-dot-bigger');
-            }
-
-            function checkScrollPage() {
-                let vh = Math.max(
-                    document.documentElement.clientHeight || 0,
-                    window.innerHeight || 0
-                );
-                let page = document.documentElement.scrollTop / vh + 1;
-                page = Math.round(page);
-
-                if (scrollCheck) {
-                    customScrollBarSet(page);
-                }
-            }
-
-            function redirect(url) {
-                window.location.href = url;
-            }
+            console.log(
+                document.documentElement.style.getPropertyValue(
+                    '--border-color'
+                )
+            );
         </script>
     </body>
 </html>
