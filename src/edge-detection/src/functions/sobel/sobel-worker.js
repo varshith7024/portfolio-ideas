@@ -73,10 +73,6 @@ function sobelConvolutionHorizontal(array, info) {
         result.push(Math.floor(average));
     }
 
-    for (let i = 0; i < array.length; i++) {
-        result.push(255 - array[i]);
-    }
-
     return result;
 }
 
@@ -123,10 +119,5 @@ function sobelConvolutionVertical(array, info) {
 
         result.push(Math.floor(average));
     }
-
-    for (let i = 0; i < array.length; i++) {
-        result.push(255 - array[i]);
-    }
-
     return result;
 }

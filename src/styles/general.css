@@ -1,56 +1,62 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
-:root {
-    --border-width: 0.4rem;
-    --border-color: #151515;
-    --main-background-color: #f3e9d2;
-    --light-color-2: #ee6c4d;
-    --light-color-3: #e0fbfc;
-    --light-color-4: #98c1d9;
-    --light-color-5: #3d5a80;
-    --light-color-6: #de8f6e;
-    --light-color-1: var(--main-background-color);
-}
-
 html {
-    background-color: var(--main-background-color);
     font-family: 'Playfair Display', serif;
     font-optical-sizing: auto;
-    color: #151515;
 }
 
-.container {
+.home {
+    width: 100vw;
+    height: 100vh;
+    background-color: #121212;
     display: flex;
     flex-direction: column;
-    border: var(--border-width) solid var(--border-color);
-    border-radius: 30px;
-    flex-grow: 1;
+    color: white;
+}
+
+.home-img {
+    flex: 1 1 0;
     overflow: hidden;
-}
-
-.section {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.center-home {
-    padding: 40px 20px 25px 20px;
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-}
-
-.border-section {
-    border-top: var(--border-width) solid var(--border-color);
-}
-
-.name-container {
     position: absolute;
-    border: var(--border-width) solid var(--border-color);
-    background-color: var(--main-background-color);
-    top: 25px;
-    border-radius: 30px;
-    padding: 5px 25px 5px 25px;
+    height: 100%;
+    width: 100%;
+}
+
+.name {
+    font-size: 2rem;
+}
+.tagline {
+    font-size: 1.5rem;
+}
+
+.home-intro {
+    z-index: 9999;
+    margin-left: 5vw;
+    margin-top: 20vh;
+}
+
+.contact {
+    font-size: 0.8rem;
+    margin-top: 2vh;
+    width: 100px;
+    height: 50px;
+    border: 1px solid white;
+    background-color: #121212;
+    color: white;
+}
+
+.img-clipped {
+    clip-path: circle(42% at 41% 80%);
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes expand-clip {
+    from {
+        clip-path: circle(50% at 41% 77%);
+    }
+    to {
+        clip-path: circle(100% at 41% 77%);
+    }
 }

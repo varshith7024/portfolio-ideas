@@ -39,8 +39,9 @@ function NonMaximumSupression(magnitude, direction, info) {
                 result[i] = 0;
             }
             continue;
+        } else {
+            result[i] = 0;
         }
-        result[i] = 0;
     }
     return result;
 }

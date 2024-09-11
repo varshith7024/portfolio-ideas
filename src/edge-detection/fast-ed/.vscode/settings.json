@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "source_location": "c",
+        "chrono": "c",
+        "variant": "c"
+    }
+}

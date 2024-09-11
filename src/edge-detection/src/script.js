@@ -12,7 +12,7 @@ import { arrayToCanvas } from './common/canvas.js';
 // } from './wasm-functions/pkg/wasm_functions.js';
 
 ///// CONSTANTS
-const imageName = 'tes4.jpg';
+const imageName = 'test.png';
 const dtMin = 0.09;
 const dtMax = 0.12;
 const blurRadius = 10;
